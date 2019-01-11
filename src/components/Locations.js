@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import StationsMap from "./StationsMap";
+import Loading from "react-loading-bar";
+import "react-loading-bar/dist/index.css";
 
 class Locations extends Component {
   state = {
@@ -26,12 +28,20 @@ class Locations extends Component {
       );
   }
 
+  onShow = () => {
+    this.setState({ isLoading: true });
+  };
+
+  onHide = () => {
+    this.setState({ isloading: false });
+  };
+
   render() {
     console.log(this.state.stations);
     const { isLoading, stations } = this.state;
     return (
       <div>
-        Rendered
+        <Loading show={this.state.isLoading} color="red" />
         {!isLoading && (
           <StationsMap
             stations={stations}
