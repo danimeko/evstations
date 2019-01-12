@@ -45,7 +45,7 @@ class Locations extends Component {
         {!isLoading && (
           <StationsMap
             stations={stations}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBCHOXJzvHtr41MG_9k9-4RRUIK7lZLrvQ&v=3.exp&libraries=geometry,drawing,places`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyB308OAwh8rv0c1nH07VCJWJvTv4t2uOXk&v=3.exp&libraries=geometry,drawing,places`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={
               <div style={{ height: `600px`, width: `100%` }} />
