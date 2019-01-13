@@ -2,60 +2,43 @@ import React, { Component } from "react";
 import StationsMap from "./StationsMap";
 import Loading from "react-loading-bar";
 import "react-loading-bar/dist/index.css";
+import { connect } from "react-redux";
+import { featchLocation } from "../actions/feachStationAction";
 
 class Locations extends Component {
-  state = {
-    stations: [],
-    isLoading: false
-  };
-
   componentDidMount() {
-    this.setState({
-      isLoading: true
-    });
-    this.featchLocation();
+    this.props.featchLocation();
   }
-
-  featchLocation() {
-    var targetUrl = "https://api.virta.fi/v4/stations";
-    fetch(targetUrl)
-      .then(responce => responce.json())
-      .then(data =>
-        this.setState({
-          stations: data,
-          isLoading: false
-        })
-      );
-  }
-
-  onShow = () => {
-    this.setState({ isLoading: true });
-  };
-
-  onHide = () => {
-    this.setState({ isloading: false });
-  };
 
   render() {
-    console.log(this.state.stations);
-    const { isLoading, stations } = this.state;
+    const { loading, stations } = this.props;
+
     return (
       <div>
-        <Loading show={this.state.isLoading} color="red" />
-        {!isLoading && (
-          <StationsMap
-            stations={stations}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyB308OAwh8rv0c1nH07VCJWJvTv4t2uOXk&v=3.exp&libraries=geometry,drawing,places`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={
-              <div style={{ height: `600px`, width: `100%` }} />
-            }
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        )}
+        <Loading show={loading} color="red" />
+        <StationsMap
+          stations={stations}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyB308OAwh8rv0c1nH07VCJWJvTv4t2uOXk&v=3.exp&libraries=geometry,drawing,places`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `600px`, width: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
       </div>
     );
   }
 }
 
-export default Locations;
+const mapStateToProps = state => ({
+  loading: state.stations.loading,
+  stations: state.stations.stations,
+  error: state.stations.error
+});
+
+const mapActionToProps = {
+  featchLocation
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionToProps
+)(Locations);

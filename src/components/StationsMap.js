@@ -8,11 +8,14 @@ const StationsMap = withScriptjs(
       <StationMarker
         key={station.id}
         location={{ lat: station.latitude, lng: station.longitude }}
+        onClick={ () =>
+          console.log("hello")
+        }
       />
     ));
 
     return (
-      <GoogleMap defaultZoom={14} center={{ lat: 60.16, lng: 24.93 }}>
+      <GoogleMap defaultZoom={12} center={{ lat: 60.19, lng: 24.93 }}>
         {markers}
       </GoogleMap>
     );
